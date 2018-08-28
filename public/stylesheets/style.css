@@ -1,14 +1,88 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+body,html{
+  width:100%;
+  height: 100%;
+}
+body,html,*{
+  padding:0;
+  margin:0;
 }
 
 a {
   color: #00B7FF;
+}
+ul li{
+  list-style: none;
+  padding:0;
+}
+::-webkit-scrollbar{
+  background-color: transparent;
+  width:1;
+  height: 1;
 }
 .Title{
   color:blue;
 }
 .enter{
   margin-bottom:10px;
+}
+#toast{
+  width:auto;
+  padding:0 20px;
+  height: 40px;
+  line-height:40px;
+  background-color:rgba(0,0,0,0.5);
+  color:#fff;
+  font-size:20px;
+  display: none;
+}
+.header{
+  width:100%;
+  height: auto;
+  padding:10px 30px;
+  border:1px solid #ebebeb;
+  position: relative;
+}
+.logout{
+  position: absolute;
+  bottom:25px;
+  right:100px;
+  color:#333;
+  font-size:15px;
+}
+.nav{
+  width:30%;
+  height: 100%;
+  padding:30px 0 30px 30px;
+  border-right:1px solid #f4f4f8;
+  float:left;
+  box-sizing:border-box;
+}
+.view_lists{
+  line-height:40px;
+  font-size:20px;
+}
+#blogContent{
+  float:left;
+  width:70%;
+  height:100%;
+  float:left;
+  background-color:#f4f4f8;
+  padding:10px 20px;
+  box-sizing:border-box;
+}
+.articleTitle{
+  color:red;
+}
+.autor{
+  color:#00B7FF;
+}
+.articleTime{
+  color:#999;
+}
+.article{
+  font-size:14px;
+  line-height:24px;
 }

@@ -1,11 +1,47 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  div.Title 这里的项目的主页
-  ul.view_lists
-    li#reg 注册页面
-    li#login  登录页面
+  .header
+    h1= title
+    h2= user
+    h2 Welcome to #{user} #{title}
+    div.Title 这是项目的主页
+    div.logout 退出登录
+  .nav
+    ul.view_lists
+      li#reg 注册页面
+      li#login  登录页面
+      li#post 博客发表
+      li#personalBlog 个人博客
+      li#allBlog  博客圈 
+    div.success #{success}
+    h1= success
+    h1 #{error}
+  
+    #container
+        - if (success)
+          div You are amazing
+        - else
+          div #{success}2333
+        - if (error)
+          div 出错了@！
+        - else
+          div 456
+        - if (user)
+          div #{user} 注册(登录)成功了！
+        - else
+          div 789
+  #blogContent
+    ul
+      - for(var i=0;i<posts.length;i++)
+        li 
+          h2.articleTitle #{posts[i].title}
+          h4.autor #{posts[i].name}
+          h4.articleTime #{posts[i].time.date}
+          div.article #{posts[i].post}
+
   script(type="text/javascript",src="/javascripts/main.js")
+
+
+ 
    

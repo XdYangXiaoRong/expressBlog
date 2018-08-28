@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h2= user
+  h3 Welcome to #{user}的 #{title}
+  h3= title
+  
+  form(method='post')
+    div.title 标题
+    input(type="text" name="title") 
+    div.title 正文
+    textarea(name="post", cols="30", rows="10")
+    br
+    button(type="submit" id="postSubmit") 发表

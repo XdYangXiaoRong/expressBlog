@@ -3,38 +3,52 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var debug = require('debug');
-
-var settings = require('./settings'); 
+var bodyParser = require('body-parser');
+var settings = require('./settings');
+var flash = require('connect-flash');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
-// view engine setup
-//设置views文件夹为存放视图文件的目录， 即存放模板文件的地方,__dirname 为全局变量,存储当前正在执行的脚本所在的目录。
-app.set('views', path.join(__dirname, 'views'));
-// 设置视图模板引擎为jade
-app.set('view engine', 'jade');
-//设置端口
-// app.set('port',process.env.PORT || 3005);
+/**
+ * 数据库连接代码,得写在app.use('/', indexRouter)（运用路由）之前
+ */
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+app.use(session({
+  secret:settings.cookieSecret,
+  key:settings.db,//cookie name
+  cookie:{maxAge:1000*60*60*24*30},//30 days
+  store:new MongoStore({
+    db:settings.db,
+    host:settings.host,
+    port:settings.port
+  })
+}));
 
-app.use(logger('dev'));//加载日志中间件
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+app.use(flash())
+app.set('port',process.env.PORT || 3000);
+
+app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+/**
+ * bodyParser.urlencoded 用来解析 request 中 body的 urlencoded字符， 只支持utf-8的编码的字符,也支持自动的解析gzip和 zlib。
+  返回的对象是一个键值对，当extended为false的时候，键值对中的值就为'String'或'Array'形式，为true的时候，则可为任何数据类型。
+ */
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// indexRouter(app);
-app.listen(app.get('port'),function(){
-  debug('Express server listening on port ' + app.get('port'))
-  console.log(2333,'Express server listening on port ' + app.get('port'))
-})
-// 捕获404错误，并转发到错误处理器（catch 404 and forward to error handler）
+
+// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
@@ -47,10 +61,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error',{
-    message:err.message,
-    error:err
-  });
+  res.render('error');
 });
 
 module.exports = app;

@@ -1,15 +1,18 @@
 extends layout
 
 block content
-  form
+  form(method="post")
     div.enter
-        label(for="username") username:  
-        input(type='text',name="username" placeholder='请输入用户名' id="username")
+        label(for="username") 用户名:  
+        input(type='text',name="name" placeholder='请输入用户名' id="username")
     div.enter
-        label(for="password") password:  
+        label(for="password") 密码:  
         input(type='password',name="password" placeholder='请输入密码' id="password")
     div.enter
-        label(for="passwordAgin") passwordAgin:  
-        input(type='password',name="passwordAgin" placeholder='请输入密码' id="passwordAgin")
+        label(for="passwordAgin") 确认密码:  
+        input(type='password',name="passwordAgin" placeholder='请确认密码' id="passwordAgin")
+    div.enter
+        label(for="email") 邮箱:  
+        input(type='text',name="email" placeholder='请输入邮箱' id="email")
     button(type="submit" id="regSubmit")确认注册
-    script(type="text/javascript",src="/javascripts/main.js")
+  script(type="text/javascript",src="/javascripts/main.js")
