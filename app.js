@@ -18,7 +18,7 @@ var app = express();
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 app.use(session({
-  secret:settings.cookieSecret,
+  secret:settings.cookieSecret,//加密
   key:settings.db,//cookie name
   cookie:{maxAge:1000*60*60*24*30},//30 days
   store:new MongoStore({
@@ -29,7 +29,9 @@ app.use(session({
 }));
 
 // view engine setup
+//设置views文件夹为存试图徒文件的目录，即存放模板文件的地方，__dirname为全局变量，存储当前正在执行的脚本所在的目录。
 app.set('views', path.join(__dirname, 'views'));
+//设置视图模板引擎为jade
 app.set('view engine', 'jade');
 app.use(flash())
 app.set('port',process.env.PORT || 3000);

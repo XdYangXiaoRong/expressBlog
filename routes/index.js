@@ -77,7 +77,6 @@ router.post('/reg', function (req, res,next) {
   if(password !== password_re){
     req.flash('error','两次输入的密码不一样！')
     console.log('两次输入的密码不一样！')
-    // res.render('reg',{toastMessage:'两次输入的密码不一样！'});
     return res.redirect('/reg');//返回注册页
   }
   //生成密码MD5值
@@ -96,7 +95,7 @@ router.post('/reg', function (req, res,next) {
       return res.redirect('/');
     }
     if(user){
-      // req.flash('error','用户已经存在@！')
+      req.flash('error','用户已经存在@！')
       console.log('用户已经存在@！',user)
       return res.redirect('/reg');//返回注册页
     }else{
